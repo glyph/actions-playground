@@ -8,3 +8,5 @@ jobs:
     - uses: actions/checkout@master
     - name: examine the comment
       uses: ./review-requester
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

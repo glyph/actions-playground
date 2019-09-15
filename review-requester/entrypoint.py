@@ -7,7 +7,7 @@ from gidgethub.treq import GitHubAPI
 
 async def main(reactor):
     print("STANDARD INPUT", stdin.read())
-    gh = GitHubAPI("", environ["INPUT_REPO_TOKEN"])
+    gh = GitHubAPI("", environ["GITHUB_TOKEN"])
     print(await gh.getitem("/repos/octocat/Hello-World/issues/comments/1"))
 
 task.react(lambda reactor, *argv: defer.ensureDeferred(main(reactor)))
