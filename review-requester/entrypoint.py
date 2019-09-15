@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/e/bin/python3.7
 
 from sys import stdin
 from os import environ

@@ -9,8 +9,9 @@ LABEL "repository"="http://github.com/glyph/actions-playground"
 LABEL "homepage"="http://github.com/glyph/actions-playground"
 LABEL "maintainer"="Glyph <glyph@twistedmatrix.com>"
 
-RUN apt update;
-RUN pip install gidgethub treq;
+RUN apt update -qyy;
+RUN python3.7 -m venv /e;
+RUN /e/bin/pip install gidgethub treq;
 ADD entrypoint.py /entrypoint.py
 
 ENTRYPOINT ["/entrypoint.py"]
