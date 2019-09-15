@@ -26,6 +26,6 @@ async def main(reactor):
     print("got", llist)
     getattr(llist, operation)(label)
     print("modified", llist)
-    await gh.post(labels_url, data={"labels": llist})
+    await gh.post(labels_url, data=llist)
 
 task.react(lambda reactor, *argv: defer.ensureDeferred(main(reactor)))
