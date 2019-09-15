@@ -1,0 +1,9 @@
+on: issue_comment
+name: Review Requester
+jobs:
+  examineComment:
+    name: what's in the comment
+    runs-on: ubuntu-latest
+    steps:
+    - name: examine the comment
+      uses: ./review-requester
