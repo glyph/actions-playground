@@ -22,7 +22,8 @@ async def main(reactor):
         print("nevermind")
         return
     gh = GitHubAPI("glyph-actions-playground", oauth_token=environ["GITHUB_TOKEN"])
-    llist = (await gh.getitem(labels_url))['labels']
+    llist = await gh.getitem(labels_url)
+    print("got", llist)
     getattr(llist, operation)(label)
     print("modified", llist)
     await gh.post(labels_url, {"lables": llist})
