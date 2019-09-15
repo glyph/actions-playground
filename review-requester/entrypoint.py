@@ -5,6 +5,7 @@ from json import load
 
 from twisted.internet import defer, task
 from gidgethub.treq import GitHubAPI
+from hyperlink import parse as parse_url
 
 async def main(reactor):
     with open(environ['GITHUB_EVENT_PATH']) as f:
@@ -12,20 +13,15 @@ async def main(reactor):
     labels_url = event['issue']['labels_url']
     command = event['comment']['body']
     cmdwords = command.strip().split(" ")
+    gh = GitHubAPI("glyph-actions-playground", oauth_token=environ["GITHUB_TOKEN"])
     if cmdwords[0] == '/label':
         label = cmdwords[1]
-        operation = 'append'
+        await gh.post(labels_url, data=[label])
     elif cmdwords[0] == '/unlabel':
         label = cmdwords[1]
-        operation = 'remove'
+        await gh.delete(parse_url(labels_url).child(label).to_text())
     else:
         print("nevermind")
         return
-    gh = GitHubAPI("glyph-actions-playground", oauth_token=environ["GITHUB_TOKEN"])
-    llist = [each['name'] for each in (await gh.getitem(labels_url))]
-    print("got", llist)
-    getattr(llist, operation)(label)
-    print("modified", llist)
-    await gh.post(labels_url, data=llist)
 
 task.react(lambda reactor, *argv: defer.ensureDeferred(main(reactor)))

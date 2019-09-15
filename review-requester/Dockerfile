@@ -11,7 +11,7 @@ LABEL "maintainer"="Glyph <glyph@twistedmatrix.com>"
 
 RUN apt update -qyy;
 RUN python3.7 -m venv /e;
-RUN /e/bin/pip install gidgethub treq;
+RUN /e/bin/pip install gidgethub treq hyperlink;
 ADD entrypoint.py /entrypoint.py
 
 ENTRYPOINT ["/entrypoint.py"]
